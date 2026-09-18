@@ -19,8 +19,7 @@ All 985 affected orders share the following input conditions:
 - `category = fragile`
 - `express = True`
 
-The coupon value is not required for the regression. The affected
-orders occur both with and without the `SAVE10` coupon.
+The affected orders occur both with and without the `SAVE10` coupon, so the regression is not limited to one coupon condition.
 
 The `books` category was excluded because its pricing change was
 explicitly documented as intentional.
@@ -75,8 +74,8 @@ mistake cannot be confirmed.
 
 ## Investigation Process
 
-- Loaded the CSV and verified the number of orders and available columns.
-- Initially compared `v1_total` and `v2_total` directly and found 16,000 differing rows.
+- Loaded the CSV, verified the number of orders and available columns, and initially treated all 16,000 non-zero differences as potential regressions.
+- Determined that this initial approach was a dead end because it mixed the intentional `books` pricing change with harmless cent-level floating-point differences.
 - Examined the distribution of differing rows by category and express status.
 - Excluded the `books` category because its pricing change was explicitly documented as intentional.
 - Calculated the actual price difference between the old and new pricing outputs.
